@@ -1,13 +1,18 @@
-from fastapi import APIRouter, HTTPException, Security
+from fastapi import APIRouter, HTTPException, Depends
 from app.schemas.documents import DocumentResponse, UpdateRequest, DeleteBatchRequest, StatsResponse
 from app.dependencies import vector_store
 from app.core.security import verify_api_key
 from app.services.vector_store import VectorStoreError
+from app.core.rate_limiter import rate_limit
 
-router = APIRouter(prefix="/documents", tags=["Documents"])
+router = APIRouter(
+    prefix="/documents", 
+    tags=["documents"],
+    dependencies=[Depends(rate_limit), Depends(verify_api_key)] 
+)
 
 @router.get("/{id}", response_model=DocumentResponse)
-def get_document(id: str, api_key: str = Security(verify_api_key)):
+def get_document(id: str):
     try:
         doc = vector_store.get_by_id(id)
         if not doc:
@@ -16,7 +21,7 @@ def get_document(id: str, api_key: str = Security(verify_api_key)):
     except VectorStoreError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 @router.put("/{id}")
 def update_document(id: str, payload: UpdateRequest):
@@ -26,7 +31,7 @@ def update_document(id: str, payload: UpdateRequest):
     except VectorStoreError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 @router.delete("/{id}")
 def delete_document(id: str):
@@ -36,7 +41,7 @@ def delete_document(id: str):
     except VectorStoreError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 @router.post("/batch/delete")
 def delete_documents_batch(payload: DeleteBatchRequest):
@@ -46,7 +51,7 @@ def delete_documents_batch(payload: DeleteBatchRequest):
     except VectorStoreError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 @router.get("/stats/count", response_model=StatsResponse)
 def get_stats():
@@ -55,7 +60,7 @@ def get_stats():
     except VectorStoreError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Internal server error")
 
 @router.delete("/clear/all")
 def clear_all():
@@ -65,4 +70,4 @@ def clear_all():
     except VectorStoreError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Internal server error")

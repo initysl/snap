@@ -1,14 +1,14 @@
-from fastapi import APIRouter, HTTPException,Security
+from fastapi import APIRouter, Depends, HTTPException
 from app.schemas.search import SearchRequest, SearchResponse
 from app.dependencies import vector_store
 from app.core.security import verify_api_key
 from app.services.vector_store import VectorStoreError
+from app.core.rate_limiter import rate_limit
 
-
-router = APIRouter(prefix="/search", tags=["Search"])
+router = APIRouter(prefix="/search", tags=["search"], dependencies=[Depends(rate_limit), Depends(verify_api_key)] )
 
 @router.post("/", response_model=SearchResponse)
-def search_document(payload: SearchRequest, api_key: str = Security(verify_api_key)):
+def search_document(payload: SearchRequest):
     try:
         results = vector_store.search(
             query=payload.query,
@@ -20,4 +20,4 @@ def search_document(payload: SearchRequest, api_key: str = Security(verify_api_k
     except VectorStoreError as e:
         raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=500, detail="Internal server error")
