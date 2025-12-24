@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, Security
 from app.schemas.ingest import IngestRequest, IngestResponse
 from app.dependencies import vector_store
 from app.core.security import verify_api_key
+from app.services.vector_store import VectorStoreError
 
 router = APIRouter(prefix="/ingest", tags=["Ingest"])
 
@@ -21,5 +22,7 @@ def ingest_document(payload: IngestRequest, api_key: str = Security(verify_api_k
                 metadata=payload.metadata
             )
             return {"id": vector_id}
+    except VectorStoreError as e:
+        raise HTTPException(status_code=400, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

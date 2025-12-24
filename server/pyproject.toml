@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "vectorsnap"
+name = "Cache"
 version = "1.0.0"
 description = "Vector similarity search API"
 authors = ["Your Name <you@example.com>"]
