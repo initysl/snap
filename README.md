@@ -1,4 +1,4 @@
-# VectorSnap
+# Cache
 
 A Knowledge Base service that turns inforamtion into vector embeddings, stores them, and lets users search using semantic meaning instead of keywords.
 Store notes, articles, book highlights, research snippets, recipes, etc, then search them conversationally instead of scrolling through hundreds of notes.
