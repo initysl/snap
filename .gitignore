@@ -1,15 +1,10 @@
-# dependencies
 /client/node_modules
-# next.js
 /client/.next/
+/client/.env.local
 client/out/
-# production
 client/build
-# debug
 client/npm-debug.log*
-# vercel
 client/.vercel
-# typescript
 client/*.tsbuildinfo
 client/next-env.d.ts
 
