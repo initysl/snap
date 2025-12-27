@@ -1,3 +1,4 @@
+import Profile from '@/components/dashboard/Profile';
 import Promptbar from '@/components/dashboard/Promptbar';
 
 export default function DashboardLayout({
@@ -6,9 +7,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className='min-h-screen bg-linear-to-br from-slate-50 to-blue-50'>
-      <Promptbar />
-      <main className='max-w-7xl mx-auto px-6 py-8'>{children}</main>
+    <div className='flex flex-col items-center justify-center'>
+      <div>
+        <Profile />
+      </div>
+      <main className='max-w-5xl'>{children}</main>
+      <div>
+        <Promptbar />
+      </div>
     </div>
   );
 }

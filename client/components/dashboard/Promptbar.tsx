@@ -87,8 +87,8 @@ export default function Promptbar() {
   };
 
   return (
-    <nav className='fixed bottom-5 left-0 right-0 z-50 px-4 exo'>
-      <div className='mx-auto max-w-xl'>
+    <nav className='z-50 px-4 exo'>
+      <div className='fixed bottom-5 left-0 right-0 mx-auto max-w-xl'>
         <div className='relative flex items-center gap-2 rounded-full bg-white px-4 py-3 shadow-lg border border-gray-200 transition-all focus-within:border-blue-500 focus-within:shadow-blue-100 '>
           {' '}
           {open && filteredCommands.length > 0 && (
