@@ -1,4 +1,4 @@
-import Navbar from '@/components/dashboard/Navbar';
+import Promptbar from '@/components/dashboard/Promptbar';
 
 export default function DashboardLayout({
   children,
@@ -6,9 +6,9 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className='min-h-screen bg-linear-to-br from-slate-50 to-blue-50 p-4'>
-      <Navbar />
-      <main className='max-w-7xl pt-2'>{children}</main>
+    <div className='min-h-screen bg-linear-to-br from-slate-50 to-blue-50'>
+      <Promptbar />
+      <main className='max-w-7xl mx-auto px-6 py-8'>{children}</main>
     </div>
   );
 }
