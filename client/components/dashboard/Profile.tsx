@@ -21,7 +21,7 @@ export default function ProfileCard() {
         transformStyle: 'preserve-3d',
         perspective: 1000,
       }}
-      className='flex items-center gap-4 bg-white rounded-2xl p-2 mt-2 shadow-lg hover:shadow-xl transition-shadow w-fit'
+      className='flex items-center gap-4 bg-white rounded-2xl p-2 mt-2 shadow-md hover:shadow-lg transition-shadow w-fit'
     >
       {/* Avatar */}
       <motion.div

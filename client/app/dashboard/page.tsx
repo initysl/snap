@@ -2,7 +2,8 @@
 
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, X, FileText, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { X, FileText, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { MdOutlineDriveFolderUpload } from 'react-icons/md';
 import { useIngest } from '@/hooks/useIngest';
 import { IngestRequest } from '@/types';
 import Navtab from '@/components/dashboard/Navtab';
@@ -157,7 +158,7 @@ export default function UploadPage() {
         >
           <Navtab />
         </motion.div>
-        <Textarea/>
+        <Textarea />
 
         {/* Upload Area */}
         <motion.div
@@ -190,16 +191,16 @@ export default function UploadPage() {
                   scale: isDragging ? 1.1 : 1,
                 }}
                 transition={{ duration: 0.2 }}
-                className='w-24 h-24 bg-teal-600 rounded-3xl flex items-center justify-center mb-6 shadow-lg'
+                className='w-24 h-24 rounded-3xl border border-dashed flex items-center justify-center mb-6 '
               >
-                <Upload className='w-12 h-12 text-white' strokeWidth={2.5} />
+                <MdOutlineDriveFolderUpload className='w-16 h-16 text-blue-600' />
               </motion.div>
               <div className='flex flex-col items-center'>
-                <p className='text-md font-normal text-gray-900 mb-2'>
+                <p className='text-sm font-normal text-gray-500 mb-2'>
                   Drop your file(s) here, or{' '}
                   <span className='text-blue-600'>Browse</span>
                 </p>
-                <p className='text-sm text-gray-500'>
+                <p className='text-xs text-gray-500'>
                   pdf, txt, doc • Max file size 80MB
                 </p>
               </div>

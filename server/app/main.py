@@ -2,6 +2,7 @@ from dotenv import load_dotenv
 load_dotenv() 
 import uvicorn
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from app.api.v1 import api_router
 from app.core.rate_limiter import init_limiter
 import logging
@@ -38,6 +39,23 @@ app = FastAPI(
     description="A vector similarity search API for semantic document retrieval",
     version="1.0.0",
     lifespan=lifespan
+)
+
+# Set up CORS middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+    ],
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=[
+        "Content-Type",
+        "Authorization",
+        "X-API-Key",
+        "Accept",
+    ],
 )
 
 app.include_router(api_router, prefix="/api/v1")

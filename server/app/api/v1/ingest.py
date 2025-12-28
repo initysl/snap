@@ -1,4 +1,3 @@
-# app/api/v1/ingest.py
 from fastapi import APIRouter, Depends, HTTPException
 from app.schemas.ingest import IngestRequest, IngestResponse
 from app.dependencies import vector_store
